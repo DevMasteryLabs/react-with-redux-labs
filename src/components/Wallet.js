@@ -1,7 +1,9 @@
 
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 const Wallet = () => {
+  const wallet = useSelector(state => state.wallet);
   const [amount, setAmount] = useState(0);
 
   function handleDeposit() {
@@ -22,7 +24,7 @@ const Wallet = () => {
               <button type="button" className="btn btn-success mb-1" onClick={handleDeposit}>Deposit $10</button>
               <button type="button" className="btn btn-danger mt-1" onClick={handleWithdraw}>Withdraw $10</button>
             </div>
-            <h3>${amount}</h3>
+            <h3>${wallet}</h3>
           </div>
         </div>
       </div>

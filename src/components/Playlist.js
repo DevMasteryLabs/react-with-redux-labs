@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
 
 
 const Playlist = () => {
+  const playlist = useSelector(state => state.playlist)
   const [songs, setSongs] = useState(["Take Five", "Claire de Lune"]);
   const [selectedSongIndex, setSelectedSongIndex] = useState(null);
   const [songTitle, setSongTitle] = useState("");
@@ -62,7 +64,7 @@ const Playlist = () => {
         </div>
         <div className="col-md-6">
           <ul className="list-group mt-5">
-            {songs.map((song, index) => (
+            {playlist.map((song, index) => (
               <li
                 key={index}
                 className={`list-group-item ${index === selectedSongIndex ? "active" : ""}`}
@@ -74,7 +76,7 @@ const Playlist = () => {
             ))}
           </ul>
           {
-            (songs && songs.length > 0 && selectedSongIndex === null) && (
+            (playlist && playlist.length > 0 && selectedSongIndex === null) && (
               <button
                 type="button"
                 className="btn btn-danger d-block ms-auto my-2"
