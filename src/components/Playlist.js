@@ -1,16 +1,22 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+
+import { addSong, removeSong, removeAllSongs } from "../redux/actions/playlistActionCreators"
 
 
 const Playlist = () => {
-  const playlist = useSelector(state => state.playlist)
-  const [songs, setSongs] = useState(["Take Five", "Claire de Lune"]);
+  const playlist = useSelector(state => state.playlist);
+  const dispatch = useDispatch();
+
   const [selectedSongIndex, setSelectedSongIndex] = useState(null);
   const [songTitle, setSongTitle] = useState("");
 
   function handleSubmit(e) {
     e.preventDefault();
-    setSongs(songs => [...songs, songTitle.trim()]);
+    const title = songTitle.trim();
+    if (title !== "") {
+      dispatch(addSong(title));
+    }
     setSongTitle("");
   }
 
@@ -20,12 +26,12 @@ const Playlist = () => {
   }
 
   function handleRemove() {
-    setSongs(songs => songs.filter((song, index) => index !== selectedSongIndex));
+    dispatch(removeSong(selectedSongIndex));
     setSelectedSongIndex(null);
   }
 
   function handleRemoveAll() {
-    setSongs([]);
+    dispatch(removeAllSongs());
     setSelectedSongIndex(null);
   }
 

@@ -1,17 +1,18 @@
 
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+
+import { depositMoney, withdrawMoney } from "../redux/actions/walletActionCreators";
 
 const Wallet = () => {
   const wallet = useSelector(state => state.wallet);
-  const [amount, setAmount] = useState(0);
+  const dispatch = useDispatch();
 
   function handleDeposit() {
-    setAmount(amount => amount + 10)
+    dispatch(depositMoney(10));
   }
 
   function handleWithdraw() {
-    setAmount(amount => amount - 10)
+    dispatch(withdrawMoney(10));
   }
 
   return (
